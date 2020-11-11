@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 setup(
     name='autoscraper',
 
-    version='1.1.7',
+    version='1.1.9',
 
     description='A Smart, Automatic, Fast and Lightweight Web Scraper for Python',
     long_description_content_type="text/markdown",
@@ -34,6 +34,6 @@ setup(
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
 
     python_requires='>=3.6',
-    install_requires=['requests', 'bs4', 'lxml', 'fuzzywuzzy'],
+    install_requires=['requests', 'bs4', 'lxml'],
 
 )

@@ -2,11 +2,8 @@ from collections import OrderedDict
 
 import random
 import string
-import warnings
 
-with warnings.catch_warnings():
-    warnings.simplefilter("ignore")
-    from fuzzywuzzy import fuzz
+from difflib import SequenceMatcher
 
 
 def unique_stack_list(stack_list):
@@ -31,6 +28,16 @@ def get_random_str(n):
     return ''.join(random.choice(chars) for i in range(n))
 
 
+def get_non_rec_text(element):
+    return ''.join(element.find_all(text=True, recursive=False)).strip()
+
+
+def text_match(t1, t2, ratio_limit):
+    if ratio_limit >= 1:
+        return t1 == t2
+    return SequenceMatcher(None, t1, t2).ratio() >= ratio_limit
+
+
 class ResultItem():
     def __init__(self, text, index):
         self.text = text
@@ -47,4 +54,4 @@ class FuzzyText(object):
         self.match = None
 
     def search(self, text):
-        return fuzz.ratio(self.text, text)/100. >= self.ratio_limit
+        return SequenceMatcher(None, self.text, text).ratio() >= self.ratio_limit
